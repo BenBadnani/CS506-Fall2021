@@ -1,3 +1,3 @@
 def draw_school():
-    print("Bosotn University")
+    print("Bosotn University ")
     return
