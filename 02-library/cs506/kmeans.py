@@ -5,14 +5,24 @@ import csv
 
 
 def point_avg(points):
-    """
+    """"
     Accepts a list of points, each with the same number of dimensions.
     (points can have more dimensions than 2)
     
     Returns a new point which is the center of all the points.
     """
-    raise NotImplementedError()
 
+    num_points = len(points)
+    num_dimensions = len(points[0])
+    avg_point = [0]*num_dimensions
+
+    for r in range(len(points)):
+        for c in range(num_dimensions):
+            avg_point[c] += points[r][c]
+
+    for c in range(num_points):
+        avg_point[c] /=  num_points
+    return avg_point          
 
 def update_centers(dataset, assignments):
     """
@@ -21,7 +31,13 @@ def update_centers(dataset, assignments):
     Compute the center for each of the assigned groups.
     Return `k` centers in a list
     """
-    raise NotImplementedError()
+    centroids = [0]* len(set(assignments))
+
+    for step, elem in assignments:
+        centroids[elem].append(dataset[step])
+    
+    return [point_avg(k) for k in centroids]
+
 
 def assign_points(data_points, centers):
     """
@@ -40,13 +56,16 @@ def assign_points(data_points, centers):
 
 
 def distance(a, b):
-    """
-    Returns the Euclidean distance between a and b
-    """
-    raise NotImplementedError()
+    return distance_squared(a,b)**(1/2)
 
 def distance_squared(a, b):
-    raise NotImplementedError()
+    if type(a) == int: 
+        return (a-b)**2
+
+    res = 0
+    for i in range(len(a)):
+        res += (a[i] - b[i])**2
+    return (a[i] - b[i])**2
 
 def generate_k(dataset, k):
     """
