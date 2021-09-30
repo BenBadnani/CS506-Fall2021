@@ -11,11 +11,18 @@ def manhattan_dist(x, y):
     return dist
     
 def jaccard_dist(x, y):
+    test = list(set(x+y))
+    if len(test) == 0 or (len(test) == 1 and test[0] == 0):
+        return 1
     intersection_cardinality = len(list(set(x) & set(y)))
     union_cardinality = len(x) + len(y)
     return intersection_cardinality/union_cardinality
 
 def cosine_sim(x, y):
+
+    test = list(set(x+y))
+    if len(test) == 0 or (len(test) == 1 and test[0] == 0):
+        return 1
     dot_prod = 0
     x_mag = 0
     y_mag = 0
